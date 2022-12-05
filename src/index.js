@@ -81,17 +81,25 @@ fetch("http://localhost:3000/characters")
 resetButton.addEventListener("click", function(e){
    e.preventDefault()
     
-   document.getElementById("vote-count").textContent = 0;
+   const id = document.querySelector(".inputs").id
+   let votesNum = document.querySelector("#vote-count").textContent = 0;
+   let voteCount = document.querySelector("#votes").value = 0
+   votesNum = parseInt(votesNum,10)
+   voteCount = parseInt(voteCount,10)||0
+
+   voteCount = voteCount + votesNum
+
+
 
    fetch(`http://localhost:3000/characters/${id}`,{
-    method: "PATCH",
-    headers: {
-        'Content-Type': 'application/json'
-        
-      },
-      body: JSON.stringify({votes})
-}).then(res => res.json()).then(character => votes.textContent = character.votes )
-e.reset()
+       method: "PATCH",
+       headers: {
+           'Content-Type': 'application/json'
+           
+         },
+         body: JSON.stringify({votes:voteCount})
+   }).then(res => res.json()).then(character => votes.textContent = character.votes )
+   e.reset()
 
    
  })
